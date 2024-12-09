@@ -17,7 +17,7 @@ services:
     container_name: dns-bind9   # Nome do contedor, 'dns-bind9'
     image: ubuntu/bind9   # Imaxe oficial de Ubuntu con Bind9 (servidor DNS)
     ports:
-      - "51:53"   # Mapea o porto 53 do contedor ao porto 51 do host (para evitar conflitos co porto 53 do host)
+      - "57:53"   # Mapea o porto 53 do contedor ao porto 57 do host (para evitar conflitos co porto 53 do host)
     volumes:
       - ./confDNS/conf:/etc/bind   # Mapea o directorio de configuración de DNS do host ao contedor
       - ./confDNS/zonas:/var/lib/bind   # Mapea o directorio de zonas DNS do host ao contedor

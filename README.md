@@ -35,7 +35,7 @@ O proximo que hay no yaml e o servidor dns que expliquei no yaml nas seguintes l
     container_name: dns-bind9   # Nome do contedor, 'dns-bind9'
     image: ubuntu/bind9   # Imaxe oficial de Ubuntu con Bind9 (servidor DNS)
     ports:
-      - "51:53"   # Mapea o porto 53 do contedor ao porto 51 do host (para evitar conflitos co porto 53 do host)
+      - "57:53"   # Mapea o porto 53 do contedor ao porto 57 do host (para evitar conflitos co porto 53 do host)
     volumes:
       - ./confDNS/conf:/etc/bind   # Mapea o directorio de configuración de DNS do host ao contedor
       - ./confDNS/zonas:/var/lib/bind   # Mapea o directorio de zonas DNS do host ao contedor
@@ -179,11 +179,11 @@ Polo que neste caso, so debemos crear as carpetas fabulasmarabillosas e fabulase
 ## Configuracions externas ao .yaml  
 Primeiro de todo, para que funcione o noso servidor DNS e non de ningun erro, debemos irnos a configuracion da propia maquina virtual, e nas opcions de red, debemos cambiar a NAT que ven por defecto a `Adaptador puente` e logo darlle a premitir todo no modo promiscuo.  
 
-Para que cando hagamos o `docker compose up` funcione todo correctamente, debemos modificar el fichero resolved.conf no sistema operativo. E para esto debemos facer un `sudo nano /etc/systemd/resolved.conf` e  buscar a liña donde pon DNS e poñer `DNS=<ip servidor>#<puerto servidor>` que no meu caso é `DNS=172.19.4.3#51` logo facemos Ctrl + S y Ctrl + X para salir y guardar.  
+Para que cando hagamos o `docker compose up` funcione todo correctamente, debemos modificar el fichero resolved.conf no sistema operativo. E para esto debemos facer un `sudo nano /etc/systemd/resolved.conf` e  buscar a liña donde pon DNS e poñer `DNS=<ip servidor>#<puerto servidor>` que no meu caso é `DNS=172.19.4.3#57` logo facemos Ctrl + S y Ctrl + X para salir y guardar.  
 E para que estos cambios se apliquen debemos facer un `sudo systemctl restart systemd-resolved`.
 
 Unha vez feito, entramos na configuración de red da nosa máquina ubuntu. E no meu caso so teño que ir arriba a dereita, logo entramos na red, e entramos na ruedita tipica das configuracions.  
 Unha vez aqui, damoslle ao apartado de IPv4 e desactivamos a opción de DNS automático  
 Para que estos cambios se apliquen debemos reiniciar a maquina ubuntu.  
 
-  E por ultimo para comprobar que funciona debemos meternos nunha consola , facer o `docker compose up` na carpeta da practica e comprobamos que non da ningun erro e vamos a o navegador e buscamos por url as nosas paxinas, que no meu caso son `www.fabulasmaravillosas.asircastelao.int` e `www.fabulasoscuras.danielcastelao.int`.
+  E por ultimo para comprobar que funciona debemos meternos nunha consola , facer o `docker compose up` na carpeta da practica e comprobamos que non da ningun erro e vamos a o navegador e buscamos por url as nosas paxinas, que no meu caso son `www.fabulasmaravillosas.asircastelao.int` e `www.fabulasoscuras.asircastelao.int`.
