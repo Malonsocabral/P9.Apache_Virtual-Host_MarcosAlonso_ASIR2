@@ -7,7 +7,7 @@ $TTL    604800
                          604800 )       ; Negative Cache TTL
 
 @       IN      NS      ns.asircastelao.int.
-ns 	IN 	A 	172.39.4.3
-fabulasoscuras       IN      A       172.39.4.2
-fabulasmaravillosas     IN      A       172.39.4.2
+ns 	IN 	A 	172.19.4.3
+fabulasoscuras       IN      A       172.19.4.2
+fabulasmaravillosas     IN      A       172.19.4.2
 

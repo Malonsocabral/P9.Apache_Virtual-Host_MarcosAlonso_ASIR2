@@ -1,34 +1,35 @@
 services:
+  # Servizo 'web' que executa un servidor web con PHP e Apache
   web:
-    image: php:7.4-apache
-    container_name: apaserver
+    image: php:7.4-apache   # Imaxe oficial de PHP con Apache, versión 7.4
+    container_name: P-Apache  # Nome do contedor, 'P-Apache'
     ports:
-      - "80:80"
+      - "80:80"   # Mapea o porto 80 do contedor ao porto 80 do host (HTTP)
     volumes:
-      - ./www:/var/www
-      - ./confApache:/etc/apache2
+      - ./www:/var/www   # Mapea o directorio 'www' do host ao directorio '/var/www' do contedor (para arquivos web)
+      - ./confApache:/etc/apache2   # Mapea o directorio de configuración de Apache do host ao do contedor
     networks:
-      apared:
-        ipv4_address: 172.39.4.2
+      redp9:   # Conéctase á rede 'redp9'
+        ipv4_address: 172.19.4.2   # Asigna a IP estática 172.19.4.2 dentro da rede 'redp9'
 
+  # Servizo 'dns' que executa un servidor DNS con Bind9
   dns:
-    container_name: dnsserver
-    image: ubuntu/bind9
+    container_name: dns-bind9   # Nome do contedor, 'dns-bind9'
+    image: ubuntu/bind9   # Imaxe oficial de Ubuntu con Bind9 (servidor DNS)
     ports:
-      - "51:53"
+      - "51:53"   # Mapea o porto 53 do contedor ao porto 51 do host (para evitar conflitos co porto 53 do host)
     volumes:
-      - ./confDNS/conf:/etc/bind
-      - ./confDNS/zonas:/var/lib/bind
+      - ./confDNS/conf:/etc/bind   # Mapea o directorio de configuración de DNS do host ao contedor
+      - ./confDNS/zonas:/var/lib/bind   # Mapea o directorio de zonas DNS do host ao contedor
     networks:
-      apared:
-        ipv4_address: 172.39.4.3
+      redp9:   # Conéctase á rede 'redp9'
+        ipv4_address: 172.19.4.3   # Asigna a IP estática 172.19.4.3 dentro da rede 'redp9'
 
+# Definición das redes que se usan polos servizos
 networks:
-  apared:
-    driver: bridge
-    ipam:
-      driver: default
+  redp9:   # Nome da rede 'redp9'
+    driver: bridge   # Usa o controlador 'bridge' para crear unha rede privada e illada
+    ipam:   # Configuración da asignación de IPs
+      driver: default   # Usa o controlador predeterminado de IPs
       config:
-        - subnet: 172.39.0.0/16
-
-
+        - subnet: 172.19.0.0/16   # Define a subrede 172.19.0.0/16 para a rede 'redp9'
